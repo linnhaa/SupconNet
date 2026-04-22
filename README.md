@@ -36,8 +36,8 @@ For the datasets, you can use the download link below. Note that the dataset is 
 
 | Dataset | Link | Size |
 |-----|-----|-----|
-| top-ranked keywords | [Link](https://drive.google.com/drive/folders/17ggEToGMdo1V0xwTjjltsVyJX-Mg0bkE?usp=sharing) | 50 classes * 00 instances |
-| AOL search queries | [Link](https://drive.google.com/drive/folders/1g8rRtsD7hFOxJvjdRIIj67xxFhV6Q6XQ?usp=sharing) | 50 classes * 00 instances |
+| top-ranked keywords | [Link](https://drive.google.com/drive/folders/17ggEToGMdo1V0xwTjjltsVyJX-Mg0bkE?usp=sharing) | 50 classes * 500 instances |
+| AOL search queries | [Link](https://drive.google.com/drive/folders/1g8rRtsD7hFOxJvjdRIIj67xxFhV6Q6XQ?usp=sharing) | 50 classes * 500 instances |
 
 
 ## 3. Run DKF and BurstGuard
