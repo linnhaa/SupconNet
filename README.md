@@ -40,7 +40,7 @@ For the datasets, you can use the download link below. Note that the dataset is 
 | AOL search queries | [Link](https://drive.google.com/drive/folders/1g8rRtsD7hFOxJvjdRIIj67xxFhV6Q6XQ?usp=sharing) | 50 classes * 500 instances |
 
 
-## 3. Run DKF and BurstGuard
+## 3. Run SupconNet and benchmarks
 
 If you want to simply run the SupconNet model, use `SupconNet` folder.
 
