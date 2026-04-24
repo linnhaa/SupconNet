@@ -32,7 +32,7 @@ natsort==8.4.0
 
 ## 3. Dataset
 
-For the datasets, you can use the download link below. Note that the dataset is in .pcap files.
+For the datasets, you can use the download link below. Note that the datasets are in .pcap files.
 
 | Dataset | Link | Size |
 |-----|-----|-----|
