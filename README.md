@@ -12,7 +12,7 @@
 
 
 ## 1. Environment
-We utilized a workstation equipped with an Intel i5-13400F CPU, 64 GB of RAM, and an NVIDIA RTX 3080 GPU, running Ubuntu 22.04. The benchmarks were also run on Kaggle.
+We utilized a workstation equipped with an Intel i5-13400F CPU, 64 GB of RAM, and an NVIDIA RTX 3080 GPU, running Ubuntu 22.04. The benchmarks were also run on Kaggle using GPU T4x2 and GPU P100.
 
 ## 2. Prerequisites and Settings
 
@@ -25,9 +25,7 @@ keras==2.6.0
 scikit-learn==1.3.0
 numpy==1.22.4
 pandas==2.2.2
-parmap==1.7.0
 tqdm==4.66.4
-natsort==8.4.0
 ```
 
 ## 3. Dataset
