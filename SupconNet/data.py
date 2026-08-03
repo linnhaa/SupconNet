@@ -91,33 +91,58 @@ def build_class_list(X, y, samples_per_class=config.SAMPLES_PER_CLASS):
 # AUGMENTATION
 # ============================================================================
 
-def packet_augmentation(x: torch.Tensor) -> torch.Tensor:
-    """
-    Stochastic augmentation for a single packet sequence tensor
-    of shape (max_packets, 3) = [time, direction, size].
-    """
-    aug = x.clone()
+def NetFlowAugmnet(x):
+    augmented = x.clone()
 
-    # 1. Time jitter  (±10 %)
+    # Time jitter
     if torch.rand(1).item() > 0.2:
-        jitter = (torch.rand_like(aug[:, 0]) - 0.5) * 0.2
-        aug[:, 0] = torch.clamp(aug[:, 0] + jitter, min=0.0)
+        noise = torch.randn_like(augmented[:, 0]) * 0.02
+        augmented[:, 0] = torch.clamp(
+            augmented[:, 0] + noise,
+            min=0
+        )
 
-    # 2. Size scaling  (×0.9 – 1.1)
+    # Size scaling
     if torch.rand(1).item() > 0.2:
         scale = 0.9 + torch.rand(1).item() * 0.2
-        aug[:, 2] = aug[:, 2] * scale
+        augmented[:, 2] = torch.round(
+            augmented[:, 2] * scale
+        )
 
-    # 3. Packet dropout  (10 % of packets zeroed)
+    # Packet dropout
     if torch.rand(1).item() > 0.5:
-        mask = (torch.rand(x.shape[0]) > 0.1).unsqueeze(1).expand_as(x)
-        aug = aug * mask.float().to(x.device)
+        mask = (torch.rand(x.shape[0]) > 0.1).unsqueeze(1).expand_as(x).to(x.device)
+        augmented = augmented * mask.float()
 
-    # 4. Gaussian noise
+    # Gaussian noise
     if torch.rand(1).item() > 0.5:
-        aug = aug + torch.randn_like(aug) * 0.05
+    
+        # Time
+        augmented[:, 0] += (
+            torch.randn_like(augmented[:, 0]) * 0.01
+        )
+    
+        # Packet size
+        size_noise = (
+            torch.randn_like(augmented[:, 2]) * 2
+        )
+    
+        augmented[:, 2] = torch.round(
+            augmented[:, 2] + size_noise
+        )
+    
+        augmented[:, 0] = torch.clamp(
+            augmented[:, 0],
+            min=0
+        )
+    
+        augmented[:, 2] = torch.clamp(
+            augmented[:, 2],
+            min=0
+        )
 
-    return torch.nan_to_num(aug, nan=0.0, posinf=0.0, neginf=0.0)
+    return torch.nan_to_num(augmented, nan=0.0, posinf=0.0, neginf=0.0)
+
 
 
 class TwoCropTransform:
@@ -167,7 +192,7 @@ class PacketDataset(torch.utils.data.Dataset):
 # ============================================================================
 
 def make_loader(data_list, batch_size=config.BATCH_SIZE):
-    transform   = TwoCropTransform(packet_augmentation)
+    transform   = TwoCropTransform(NetFlowAugmnet)
     dataset     = PacketDataset(data_list, transform=transform)
     actual_bsz  = min(batch_size, len(dataset))
 
